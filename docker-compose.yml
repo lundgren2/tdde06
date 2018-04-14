@@ -1,37 +1,36 @@
 version: '3.2'
 services:
-  go-project:
-    build: .
-    ports:
-    - "5000:5000"
-    volumes:
-    - .:/code
-    - logvolume01:/var/log
-    links:
-    - nginx
-    - postgres
-  postgres:
+  go:
+    # image: lundgren2/tdde06-go
+    build: go
     restart: always
-    image: postgres
+    env_file: .env.docker
     ports:
-      - "5432:5432"
-    environment:
-      - DEBUG=false
+      - "8080:8080"
+    volumes:
+      - ./go:/go/src/app
+      - logvolume01:/var/log
+    links:
+      - postgres
 
-      - DB_USER=
-      - DB_PASS=
-      - DB_NAME=
-      - DB_TEMPLATE=
+  postgres:
+    image: postgres:10.3-alpine
+    restart: always
+    volumes:
+      - ./postgres/init:/docker-entrypoint-initdb.d
+    ports:
+      - "127.0.0.1:5432:5432"
+    env_file: .env.docker
 
-      - DB_EXTENSION=
-
-      - REPLICATION_MODE=
-      - REPLICATION_USER=
-      - REPLICATION_PASS=
-      - REPLICATION_SSLMODE=
-  volumes:
-- /srv/docker/postgresql:/var/lib/postgresql
   nginx:
-    image: nginx
+    image: nginx:alpine
+    # restart: always
+    volumes:
+      - ./nginx/config/nginx.conf:/nginx.conf
+    command: /bin/sh -c "nginx -c /nginx.conf -g 'daemon off;'"
+    ports:
+      - "8000:80"
+    links:
+      - go
 volumes:
   logvolume01: {}
