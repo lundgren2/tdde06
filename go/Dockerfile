@@ -4,11 +4,13 @@ FROM golang:alpine
 RUN apk add --no-cache ca-certificates
 # gcc for cgo
 # Install git in order to run "go get"
+ENV APP_ROOT=/go/src/app
+
 RUN apk update && \
     apk upgrade && \
     apk add git
 
-WORKDIR /go/src/app
+WORKDIR ${APP_ROOT}
 # Copy the local package files to the container's workspace.
 COPY . .
 
