@@ -13,12 +13,12 @@ import (
 	"strings"
 )
 
-// var (
-// 	databaseHost = os.Getenv("DATABASE_HOST")
-// 	databaseUser = os.Getenv("POSTGRES_USER")
-//   databaseName = os.Getenv("POSTGRES_NAME")
-//   databasePassword = os.Getenv("POSTGRES_PASSWORD")
-// )
+var (
+	databaseHost = os.Getenv("DATABASE_HOST")
+	databaseUser = os.Getenv("POSTGRES_USER")
+  databaseName = os.Getenv("POSTGRES_NAME")
+  databasePassword = os.Getenv("POSTGRES_PASSWORD")
+)
 
 type Task struct {
 	Id     int
@@ -193,10 +193,6 @@ func ConnectDb() *sql.DB {
 
 // Handlers retrieves all handlers for the server.
 func Handlers() *http.ServeMux {
-  databaseHost := os.Getenv("DATABASE_HOST")
-	databaseUser := os.Getenv("POSTGRES_USER")
-  databaseName := os.Getenv("POSTGRES_NAME")
-  databasePassword := os.Getenv("POSTGRES_PASSWORD")
   fmt.Println("Connecting Go-app to database: ", databaseHost)
 	db := Database{Db: ConnectDb()}
 	mux := http.NewServeMux()
