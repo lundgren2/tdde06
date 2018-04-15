@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3'
 services:
   go:
     # image: lundgren2/tdde06-go
