@@ -193,8 +193,7 @@ func ConnectDb() *sql.DB {
 
 // Handlers retrieves all handlers for the server.
 func Handlers() *http.ServeMux {
-  databaseHost := os.Getenv("DATABASE_HOST")
-  fmt.Println("Run handler: %s", databaseHost)
+  fmt.Println("Connecting Go-app to database: ", databaseHost)
 	db := Database{Db: ConnectDb()}
 	mux := http.NewServeMux()
 	mux.Handle("/list", http.HandlerFunc(db.listHandler))
