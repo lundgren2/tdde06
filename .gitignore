@@ -16,4 +16,5 @@ nginx/Dockerfile
 # postgres
 postgres/Dockerfile
 postgres/docker-entrypoint.sh
+postgres/data
 
