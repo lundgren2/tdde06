@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 services:
   go:
     # image: lundgren2/tdde06-go
@@ -10,7 +10,7 @@ services:
       - "8080:8080"
     volumes:
       - ./go:/go/src/app
-      - logvolume01:/var/log
+      # - logvolume01:/var/log
     links:
       - postgres
     depends_on:
