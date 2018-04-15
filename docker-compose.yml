@@ -3,6 +3,7 @@ services:
   go:
     # image: lundgren2/tdde06-go
     build: go
+    container_name: go-app
     restart: always
     env_file: .env.docker
     ports:
@@ -12,19 +13,24 @@ services:
       - logvolume01:/var/log
     links:
       - postgres
+    depends_on:
+      - postgres
 
   postgres:
-    image: postgres:10.3-alpine
+    image: postgres:alpine
+    container_name: postgres-server
     restart: always
     volumes:
       - ./postgres/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./postgres/data/postgres:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     env_file: .env.docker
 
   nginx:
     image: nginx:alpine
-    # restart: always
+    container_name: nginx-server
+    restart: always
     volumes:
       - ./nginx/config/nginx.conf:/nginx.conf
     command: /bin/sh -c "nginx -c /nginx.conf -g 'daemon off;'"
