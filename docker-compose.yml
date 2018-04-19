@@ -35,7 +35,7 @@ services:
       - ./nginx/config/nginx.conf:/nginx.conf
     command: /bin/sh -c "nginx -c /nginx.conf -g 'daemon off;'"
     ports:
-      - "8000:80"
+      - "1337:80"
     links:
       - go
 volumes:
