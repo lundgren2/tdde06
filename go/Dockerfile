@@ -1,6 +1,6 @@
 # https://hub.docker.com/_/golang/
 
-FROM golang:alpine
+FROM golang:1.10-alpine
 RUN apk add --no-cache ca-certificates
 # gcc for cgo
 # Install git in order to run "go get"
