@@ -146,6 +146,6 @@ func TestList(test *testing.T) {
 	err = json.Unmarshal(body, &lists)
 	checkFail(test, err)
 	if len(lists) != 1 {
-		test.Errorf("Expected [] got %s", lists)
+		test.Errorf("Expected [] got other")
 	}
 }
